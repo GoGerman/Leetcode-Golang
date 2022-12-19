@@ -9,26 +9,18 @@ func main() {
 }
 
 func maxArea(height []int) int {
-	var max, max1 int
-	for i := 0; i < len(height); i++ {
-		for j := i; j < len(height); j++ {
-			if height[j] < height[i] {
-				num := height[i] - (height[i] - height[j])
-				max = num * j
-				if max > max1 {
-					max1 = max
-				}
-			} else {
-				num := height[j] - (height[j] - height[i])
-				max = num * j
-				if max > max1 {
-					max1 = max
-				}
-			}
+	w, max, left, right := 0, 0, 0, len(height)-1
+	for left < right {
+		if hl, hr, dist := height[left], height[right], right-left; hl > hr {
+			w = dist * hr
+			right--
+		} else {
+			w = dist * hl
+			left++
+		}
+		if w > max {
+			max = w
 		}
 	}
-	return max1
+	return max
 }
-
-// sfklsdlfjsdjfjdsfsdlfj
-// dfdfdfbdfg
